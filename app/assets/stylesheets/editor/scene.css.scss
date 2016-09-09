@@ -1,0 +1,106 @@
+@import 'mixins';
+
+@mixin scene-cursor($name, $offsetX, $offsetY) {
+	&.#{$name}{
+		cursor: asset-url("editor/cursors/#{$name}.png", image) $offsetX $offsetY, auto;
+	}
+}
+
+@mixin snap-bg($name) {
+	&.#{$name}{
+		background-image: asset-url("editor/cursors/#{$name}.png", image);
+	}
+}
+
+//consider using some of these http://css-tricks.com/almanac/properties/c/cursor/
+
+
+#Scene {
+	position: relative;
+	top: 0;
+	left: 0px;
+	background: none;
+	overflow: hidden;
+	width: calc(100% - 2px);
+	height: calc(100% - 26px);
+	canvas {
+		//width: 100%;
+		//height: 100%;
+	}
+	border: solid 1px $gray200;
+	@include scene-cursor(select, 0, 0);
+	@include scene-cursor(selected, 0, 0);
+
+	//@include scene-cursor(sketch, 5, 25);
+	//&.sketch{cursor: ;} //plus cursor when searching, checkmark cursor when selectable
+	&.none{cursor: none;}
+	&.default{cursor: default;}
+	&.move{cursor: move;}
+	&.copy{cursor: copy;}
+
+	&.pN{cursor: n-resize;}
+	&.pNE{cursor: ne-resize;}
+	&.pE{cursor: e-resize;}
+	&.pSE{cursor: se-resize;}
+	&.pS{cursor: s-resize;}
+	&.pSW{cursor: sw-resize;}
+	&.pW{cursor: w-resize;}
+	&.pNW{cursor: nw-resize;}
+	&.pBase{cursor: move;}
+
+	//orbit,pan,trim,measure,look,crosshair,	copy,rotate,move,scale
+}
+
+#SnappedCursor {
+	pointer-events: none;
+	position: absolute;
+	z-index: 100;
+	width: 40px; 
+	height: 40px;
+	@include snap-bg(Line);
+	@include snap-bg(Rectangle2pt);
+	@include snap-bg(Circle);
+	@include snap-bg(Polygon);
+}
+
+#Marquee {
+	pointer-events: none;
+	position: fixed;
+	//background-color: rgba(102, 133, 224, 0.2);
+	border: dashed 1px $gray102;
+}
+
+.dim-box {
+	position: absolute;
+	width: 80px; 
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	font-family: "open sans";
+	background: none;
+	border: none;
+	padding: none;
+	text-align: center;
+	outline: none;
+	//box-sizing: border-box;
+	&.pending, &.driven, &.editing {
+		color: $gray151;
+	}
+	&.driving {
+		color: $gray151;
+	}
+	&.selected {
+		color: blue;
+	}
+	&.disabled {
+		pointer-events: none;
+	}
+}
+
+.testBox {
+	position: absolute;
+	top: 40px;
+	width: 20px; 
+	height: 20px;
+	border: solid 1px black;	
+}

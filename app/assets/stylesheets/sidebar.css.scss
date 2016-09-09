@@ -1,0 +1,347 @@
+@import 'mixins';
+
+$cell: 0;
+$new: 1;
+$feedback: 2;
+$inbox: 3;
+$settings: 4;
+$invite: 5;
+$help: 6;
+$close: 7;
+$arrow: 8;
+
+
+@mixin bg($yCount) {
+	background: asset-url("sidebar/sidebar-sprite.png", image) 0px $yCount * -40px;
+	background-repeat: no-repeat;
+	background-position-x: center;
+}
+
+#Sidebar {
+	height: 100%;
+	width: 40px;
+	position: fixed;
+	z-index: 3;
+	background: $gray51;
+	&.shadow{
+		//@include shadow;
+	}
+	.sidebar-item {
+		width: 100%;
+		height: 40px;
+		float: left;
+		&:hover{
+			background-color: $gray102;
+			cursor: pointer;
+		}
+		&#Start {
+			background-image: asset-url("sidebar/honeycomb-logo-start.png", image);
+			border-bottom: solid 1px $gray102;
+			margin-bottom: 10px;
+		}
+		&#Cell {
+			@include bg($cell);
+			font-family: 'abel';
+			font-size: 12px;
+			line-height: 42px;
+			color: $gray51;
+			text-align: center;
+			#Close {
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				line-height: 16px;
+				text-align: center;
+				color: white;
+				font-family: 'open sans';
+				font-size: 10px;
+				background-color: red;
+				opacity: 0.75;
+				display: none;
+			}
+			&:hover{	background-color: $gray102;	} //temp fix
+			&:hover #Close{
+				display: block;
+			}
+			&.active {
+				background-color: $gray225;
+			}
+		}
+		&#NewCell {
+			//@include bg($new);
+			font-family: 'open sans';
+			font-weight: 300;
+			font-size: 24px;
+			line-height: 40px;
+			color: white;
+			text-align: center;
+		}
+	}
+	#BottomSection {
+		position: absolute;
+		bottom: 0px;
+		border-top: solid 1px $gray102;
+		padding: 5px 0;
+		width: 100%;
+		#Maker {
+			div {
+				margin: 5px;
+				width: 30px;
+				height: 30px;
+				@include radius(15px);
+				background-image: asset-url("sidebar/user-blank.png", image);
+				background-size: 30px 30px;
+			}
+			&:hover{	background-color: $gray102;	}
+			&.active {
+				background-color: $gray151;
+				&:hover{	background-color: $gray151;	}
+			}
+		}
+		#Feedback {
+			@include bg($feedback);
+			&:hover{	background-color: $gray102;	}
+			&.active {
+				background-color: $gray151;
+				&:hover{	background-color: $gray151;	}
+			}
+		}
+		#Help {
+			@include bg($help);
+			&:hover{	background-color: $gray102;	}
+			&.active {
+				background-color: $gray151;
+				&:hover{	background-color: $gray151;	}
+			}
+		}
+	}
+}
+
+#Window {
+	width: calc(100% - 40px);
+	height: calc(100% - 0px);
+	position: absolute;
+	left: 40px;
+	&.full {
+		width: 100%;
+		left: 0;
+	}
+}
+
+#MakerWindow {
+	position: fixed;
+	z-index: 3;
+	bottom: 5px;
+	left: 40px;
+	background: $gray51;
+	border: solid 1px black;
+	.row{
+		float: left;
+		width: 100%;
+		&:first-child {
+			//border-bottom: solid 1px $gray102;
+		}
+		#Nametag {
+			float: left;
+			margin: 14px 30px 14px 14px;
+			text-align: left;
+			line-height: 30px;
+			font-size: 14px;
+			font-family: "open sans";
+			//font-weight: 300;
+			color: white;
+			cursor: default;
+			span {
+				font-size: 12px;
+			}
+		}
+		#SignOut {
+			float: right;
+			font-size: 14px;
+			font-family: "open sans";
+			font-weight: 300;
+			color: white;
+			padding: 5px 10px;
+			margin: 14px;
+			border: solid 1px white;
+			text-decoration: none;
+		}
+		a {
+			color: white;
+			text-decoration: none;
+		}
+		#Inbox, #Settings, #Support, #Invite{
+			float: left;
+			width: calc( 100% / 3);
+			height: 40px;
+			background-position-x: center;
+			&:hover{
+				background-color: $gray102;
+				cursor: pointer;
+			}
+		}
+		#Inbox {@include bg($inbox);}
+		#Settings {@include bg($settings);}
+		#Invite {@include bg($invite);}
+	}
+}
+
+#HelpWindow {
+	position: fixed;
+	z-index: 3;
+	top: 0px;
+	left: 40px;	
+	width: calc(100% - 40px);
+	height: 100%;
+	background: rgba(51, 51, 51, 0.6);
+	.descriptor {
+		position: absolute;
+		height: 40px;
+		width: 200px;
+		left: 0;
+		.arrow {
+			@include bg($arrow);
+			width: 40px;
+			height: 40px;
+			float: left;
+		}
+		font-family: "open sans";
+		font-size: 12px;
+		line-height: 40px;
+		color: white;
+		cursor: default;		
+	}
+	#Close {
+		@include bg($close);
+		width: 40px;
+		height: 40px;
+		margin: 10px;
+		position: absolute;
+		top: 0;
+		right: 10px;
+		cursor: pointer;
+	}
+	#Text {
+		height: calc(100% - 60px);
+		width: calc(100% - 0px);
+		padding: 30px 0px;
+		text-align: center;
+		overflow-y: auto;
+		//background: rgba(51, 51, 51, 0.6);
+  		&::-webkit-scrollbar {
+    		width: 12px;
+    		background-color: $gray51alpha;
+  		}
+  		&::-webkit-scrollbar-thumb {
+    		background-color: $gray51alpha; 
+  		}
+  		#Insert {
+  			width: 600px;
+  			margin: 0 auto;
+	  		section {
+	  			margin-bottom: 60px;
+		  		font-family: "open sans";
+		  		color: white;
+	  		}
+	  		h2 {
+	  			font-weight: 300;
+	  			font-size: 20px;
+	  			text-decoration: underline;
+	  			margin: 10px 0;
+	  			font-family: "open sans";
+		  		color: white;
+	  		}
+	  		p {
+	  			font-size: 12px;
+	  		}
+	  		a {
+	  			text-decoration: none;
+	  		}
+	  		iframe {
+	  			width: 600px;
+	  			height: calc( 600px / 1.5326 );
+	  			margin-bottom: 40px;
+	  		}
+  		}
+	}
+}
+
+#FeedbackWindow {
+	position: fixed;
+	z-index: 3;
+	bottom: 45px;
+	left: 40px;
+	background: $gray51;
+	width: 310px;
+	padding: 10px;
+	border: solid 1px black;
+	h1, span, a, textarea, button {
+		float: left;
+		font-family: "open sans";
+	}
+	h1 {
+		font-size: 16px;
+		font-weight: 200;
+		color: white;
+	}
+	span {
+		font-size: 12px;
+		color: white;
+		padding: 5px 0;
+		margin-bottom: 10px;
+		border-bottom: solid 1px $gray102;
+	}
+	a {
+		font-size: 12px;
+		color: blue;
+		text-decoration: underline;
+		width: 100%;
+		border-top: solid 1px $gray102;
+		border-bottom: solid 1px $gray102;
+		margin: 10px 0;
+		padding: 5px 0;
+	}
+	textarea {
+		width: 290px;
+		height: 100px;
+		padding: 10px;
+		font-size: 12px;
+		color: $gray51;
+		resize: none;
+		border: none;
+		&.sent {
+			pointer-events: none;
+			color: gray;
+		}
+	}
+	.button {
+		font-family: "open sans";
+		float: right;
+		height: 30px;
+		width: 70px;
+		font-size: 14px;
+		font-weight: 200;
+		background: $gray102;
+		color: white;
+		border: solid 1px $gray102;
+		padding: none;
+		margin-top: 10px;
+		text-align: center;
+		line-height: 30px;
+		cursor: default;
+		//pointer-events: none;
+		&.ready {
+			//pointer-events: default !important;
+			background: $green;
+			border: solid 1px $green;
+			cursor: pointer;
+		}
+		&.sent {
+			pointer-events: none;
+			background: none;
+			color: $green;
+			border: solid 1px $green;
+			//cursor: default;
+		}		
+	}
+}

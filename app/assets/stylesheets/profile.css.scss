@@ -1,0 +1,158 @@
+@import 'mixins';
+
+$bios: (
+	location,
+	work,
+	school,
+	joined,
+	royal,
+	worker,
+	rank
+);
+
+$tabs: (
+	buzz,
+	cells,
+	requests,
+	makers,
+	hives,
+	prints,
+	description
+);
+
+@function index($id, $array) {
+	$index: 0;
+	@for $i from 0 to length($array) {
+		@if nth($array, $i+1) == $id {
+			$index: $i;
+		}
+	}	
+	@return $index;
+}
+
+@mixin bg($id) {
+	$index: index($id, $bios);
+	background: asset-url("profile/bio-sprite.png", image) center $index * -30px;
+	background-repeat: no-repeat;
+}
+
+@mixin bg2($id) {
+	$index: index($id, $tabs);
+	background: asset-url("profile/tab-sprite.png", image) center $index * -30px;
+	background-repeat: no-repeat;
+}
+
+#Profile {
+	#CoverPhoto {
+		float: left;
+		background: asset-url("landing/bg-black.png", image);
+		width: 100%;
+		height: 170px;
+		div {
+			font-family: 'open sans';			
+			font-size: 12px;
+			color: white;	
+			padding: 5px;
+			border: solid 1px white;
+			float: right;
+			margin: 10px;
+		}
+	}
+	#LeftColumn {
+		float: left;
+		width: 200px;
+		height: 600px;
+		margin-top: -75px;
+		padding: 0 25px;
+		#Photo {
+			float: left;
+			width: 150px;
+			height: 150px;
+			border-radius: 75px;
+			margin-bottom: 20px;
+			background: asset-url("profile/profile_pic.jpg", image) center center;
+		}
+		span {
+			display: block;
+			width: 100%;
+			color: $gray51;
+		}
+		#Name {
+			font-family: 'open sans';			
+			font-size: 24px;
+			font-weight: 300;		
+		}
+		#Username {
+			font-family: 'abel';			
+			font-size: 20px;		
+		}
+		#Bio {
+			font-family: 'open sans';			
+			font-size: 12px;
+			color: $gray51;	
+			border-top: solid 1px $gray225;	
+			border-bottom: solid 1px $gray225;	
+			padding: 15px 0;
+			margin: 15px 0;
+		}
+		#BioData {
+			font-family: 'open sans';			
+			font-size: 12px;
+			color: $gray51;
+			height: 30px;
+			line-height: 30px;
+			.icon {
+				float: left;
+				width: 30px;
+				height: 30px;
+				&.location {@include bg(location);}
+				&.work {@include bg(work);}
+				&.school {@include bg(school);}
+				&.joined {@include bg(joined);}
+				&.royal {@include bg(royal);}
+				&.worker {@include bg(worker);}
+				&.rank {@include bg(rank);}
+			}
+		}
+	}
+	#Body {
+		float: left;
+		width: calc( 100% - 250px);
+		height: 600px;
+		#Tabs {
+			height: 60px;
+			width: 100%;
+			padding-top: 20px;
+			border-bottom: solid 1px $gray225;
+			.tab {
+				float: left;
+				width: 100px;
+				height: 60px;
+				text-align: center;
+				border-right: solid 1px $gray225;
+				.icon {
+					display: inline-block;
+					width: 30px;
+					height: 30px;
+					background: green;
+					&.buzz {@include bg2(buzz);}
+					&.hives {@include bg2(hives);}
+					&.cells {@include bg2(cells);}
+					&.requests {@include bg2(requests);}
+					&.prints {@include bg2(prints);}
+				}
+				text-transform: capitalize;
+				font-family: 'abel';			
+				font-size: 16px;
+				color: $gray51;
+				&:hover {
+					background: $gray225;
+					cursor: pointer;
+				}
+				&:last-of-type {
+					border: none;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,125 @@
+/* mixins, variables, etc. */
+
+$grayMediumLight: #eaeaea;
+$green: rgba(0, 146, 69, 1);
+$red: red;
+$clearColor: rgba(0,0,0,0);
+$cellMarginTop: 47px;
+$gray51: rgba(51,51,51, 1);
+$gray51alpha: rgba(51,51,51, 0.25);
+$gray76: rgba(76,76,76, 1);
+$gray102: rgba(102,102,102, 1);
+$gray126: rgba(126,126,126, 1);
+$gray151: rgba(151,151,151, 1);
+$gray200: rgba(200,200,200, 1);
+$gray225: rgba(225,225,225, 1);
+$honey: rgb(255,214,51);
+
+//http://www.w3schools.com/cssref/css_colornames.asp
+
+
+@mixin gray($scale) {
+	background-color: rgba($scale,$scale,$scale, 1);
+}
+
+@mixin thin-button {
+	padding: 5px 30px;
+	border: solid 1px white;
+	border-radius:2px;
+	background: none;
+	font-family: "open sans";
+	font-size: 20px;
+	font-weight: 300;
+	color: white;	
+      text-decoration: none;
+}
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin shadow {
+	$offset: 0px;
+	$blur: 1px;
+	$spread: 1px;
+	$color: rgba(0,0,0,0.25);
+  -moz-box-shadow:    $offset $offset $blur $spread $color;
+  -webkit-box-shadow: $offset $offset $blur $spread $color;
+  box-shadow:         $offset $offset $blur $spread $color;
+}
+
+@mixin bevel {
+  $offset: 0px;
+  $blur: 1px;
+  $spread: 1px;
+  $color: $gray102 inset;
+  -moz-box-shadow:    $offset $offset $blur $spread $color;
+  -webkit-box-shadow: $offset $offset $blur $spread $color;
+  box-shadow:         $offset $offset $blur $spread $color;
+}
+
+@mixin glow {
+  $offset: 0px;
+  $blur: 3px;
+  $spread: 1px;
+  $color: red;
+  -moz-box-shadow:    $offset $offset $blur $spread $color;
+  -webkit-box-shadow: $offset $offset $blur $spread $color;
+  box-shadow:         $offset $offset $blur $spread $color;
+}
+
+@mixin transition($duration) {
+	-webkit-transition: all $duration linear;
+    -moz-transition: all $duration linear;
+    -o-transition: all $duration linear;
+    transition: all $duration linear;
+}
+
+@mixin transform($angle) {
+  -webkit-transform: rotate($angle);
+  -moz-transform: rotate($angle);
+  -o-transform: rotate($angle);
+  -ms-transform: rotate($angle);
+  transform: rotate($angle);  
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: asset-url("bg-lines.png", image);
+  overflow: none;
+  //&::-webkit-scrollbar {
+    //width: 12px;
+    //background-color: $gray51alpha;
+  //}
+  //&::-webkit-scrollbar-thumb {
+    //background-color: $gray51alpha; 
+  //}
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+  cursor: pointer;
+}

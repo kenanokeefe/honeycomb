@@ -1,0 +1,56 @@
+<div id="Sidebar" class='shadow' ng-controller="SidebarController">
+	<a ng-click="home_link()">
+		<div class='sidebar-item' id="Start" disabled='true'></div>
+	</a>
+	<a ng-click="open_cell_link(cell.id)" ng-repeat="cell in cells | filter:{ opened: true }">
+		<div class='sidebar-item' id="Cell"  ng-class="active(cell.id)">
+			<div id="Close" ng-click="close(cell.id); $event.stopPropagation();" ng-if="!active(cell.id)">X</div>
+			{{cell.name.charAt(0).toUpperCase()}}
+		</div>
+	</a>
+	<div class='sidebar-item' id="NewCell" ng-click="new_cell_link()">+</div>
+	<div id='BottomSection'  ng-init="feedback=false; maker=false">
+		<div class='sidebar-item' id="Help" ng-click="help_click()" ng-class="{active:help}"></div>
+		<div class='sidebar-item' id="Feedback" ng-click="feedback_click()" ng-class="{active:feedback}"></div>
+ 		<div class='sidebar-item' id="Maker" ng-click="maker_click()" ng-class="{active:maker}">
+			<div></div>
+		</div>
+	</div>
+	<div id="HelpWindow" ng-show="help">
+		<div class="descriptor" ng-repeat="d in descriptors" style="{{d.pos}}" id="{{d.id}}"><div class="arrow"></div>{{d.val}}</div>
+		<div id="Close" ng-click="help_click()"></div>
+		<div id="Text">
+			<div id="Insert">
+			<h2>Demo Video</h2>
+			<iframe src="//player.vimeo.com/video/107497401" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+				<section ng-repeat="section in sections">
+				<h2>{{section.title}}</h2>
+				<p ng-repeat="data in section.data track by $index">
+					{{data.val}}<br>
+					<a ng-if="$index==0" href="http://store.apple.com/us/question/answers/product/MB829LL/A/does-magic-mouse-right-click/QP47HCCH2722Y7YA7" target="_blank">How to enable right click on a Mac mouse.</a>
+				</p>
+				</section>
+			</div>
+		</div>
+	</div>
+	<div id="FeedbackWindow" ng-show="feedback">
+		<h1>Beta 1.0.0 Feedback</h1><br>
+		<span>Thank you testers! Your input is very important to us. Use the form below to get in touch. </span><br>
+		<textarea class="{{feedbackClass}}" ng-model="feedbackText" placeholder="Feedback, question, bug report..."></textarea><br>
+		<div class='button {{feedbackClass}}' ng-class="{ready:feedbackText}" type="submit" ng-click="send_feedback(makername, feedbackText)">{{feedbackSubmit}}</div>
+	</div>
+	<div id="MakerWindow" ng-show="maker">
+		<div class="row">
+			<div id="Nametag">
+				<!-- Username<br> -->
+				{{makername}}
+			</div>
+			<a id='SignOut' ng-click="signout()">Sign Out</a>
+		</div>
+<!--  		<div class="row">
+			<div id="Inbox"></div>
+			<div id="Settings"></div>
+			<div id="Invite"></div>
+		</div> -->
+	</div>
+</div>

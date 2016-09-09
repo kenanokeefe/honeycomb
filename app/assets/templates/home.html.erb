@@ -1,0 +1,35 @@
+<header class="home">
+	<span class='page-name'>My Cells</span>
+	<div id="Center">
+		<input type="text" placeholder="search" ng-model="searchText"/>
+		<select ng-model="sort" ng-click="sort_direction()">
+			<option value="">sort by:</option>
+			<option value="name">Name</option>
+			<option value="created_at">Date Created</option>
+			<option value="updated_at">Last Modified</option>
+		</select>
+	</div>
+	<!-- make button, use ng-disabled -->
+	<div id="Menu" class='menu' ng-click="menu_click()" ng-class="{'active': selectedIndex >= 0}">
+		<div id="Icon" class='menu'></div>
+		<div id="Name" class='menu'>Menu</div>	
+	</div>
+	<div id="MenuItems"  ng-show="menu">
+		<div class='item' class='menu' ng-repeat="item in menuItems" id="{{item.id}}" ng-click="item.action(cells[selectedIndex])">
+			<div class='icon' class='menu' id="{{item.id}}"></div>
+			<span class='menu'>{{item.name}}</span>
+		</div>
+	</div>
+</header>
+
+<div id="CellSection">
+	<div class='cell-item' ng-class="cellPosition()" ng-repeat="cell in cells | filter:{ name: searchText } | orderBy:sort:reverse  track by $index">
+		<div class='hexagon-in1'>
+			<div class='hexagon-in2'>
+				<div class='hexagon'  ng-click="cell_click($index)" ng-class="{'selected': $index==selectedIndex}" ng-dblclick="open_cell_link(cell.id)">
+					{{ cell.name }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

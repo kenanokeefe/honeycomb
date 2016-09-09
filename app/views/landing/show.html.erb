@@ -1,0 +1,70 @@
+<% provide(:title, 'landing') %>
+<header class="landing">
+	<div id="Logo" ng-click="home()"></div>
+	<div id="Form">
+		<a class="button enter" id="Enter" ng-click="enter_beta2()" ng-if="maker">Enter Beta</a> 
+		<div class="button signin" id="Signin" ng-click="signin()" ng-class="{solid:sign}" ng-if="!maker">Sign In</div>
+		<div class="button" ng-click="signup()" ng-class="{solid:!sign}">Sign Up</div> 
+	</div>
+</header>
+<div class="landing signin" id="Popup" ng-show="sign">
+	<span class="signin" ng-show="popup">{{signinAlert}}</span><br>
+	<form novalidate>
+	<input class="signin" type="email" ng-model="email" placeholder="email" ng-keyup="validate_signin(email,password)"/><br>
+	<input class="signin" type="password" ng-model="password" placeholder="password" ng-keyup="validate_signin(email,password)"/><br>
+    <input class="button signin {{signinClass}}" type="submit" id="Signin" ng-click="enter_beta(email)" ng-class="{solid:sign}" value="Enter Beta"></input>
+    </form>
+</div>
+<section id="Top" class="landing">
+	<h1>Simple CAD for 3D Printing</h1>
+	<p>Empowering students and makers to build great things.</p>
+	<div class="button" ng-click="signup()">Sign Up</div>
+</section>
+<section id="Desk" class="landing">
+	<a href="http://printrbot.com/shop/simple-black-assembled/" target="_blank" id="Printrbot"></a> 
+</section>
+<section id="Demo" class="landing">
+    <iframe src="//player.vimeo.com/video/107497401" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><br>
+	<div class='feature'>
+	<%= image_tag("landing/features-parametric.png", {height: 60}) %>
+		<h2>Parametric</h2>
+		<p>Create 3D models with exact measurements. Update models by going back and updating previous dimensions.</p>
+	</div>
+	<div class='feature'>
+		<%= image_tag("landing/features-cloud.png", {height: 60}) %>
+		<h2>Web-Based</h2>
+		<p>Design right in the browser with Google Chrome on any Mac or PC. Work is saved in the cloud and can be downloaded as a STL file for 3D printing.</p>
+	</div>
+	<div class='feature'>
+		<%= image_tag("landing/features-educational.png", {height: 60}) %>
+		<h2>Educational</h2>
+		<p>Easy accessibility and advanced CAD functionality makes it the perfect tool for students to learn engineering and design.</p>
+	</div>
+</section>
+<section id="Letter" class="landing">
+	<div id="Insert">
+		<%= image_tag("landing/heart-large.png") %>
+		<h2>For the Students and Makers </h2>
+		<p>
+			As an engineering student, my imagination was captured with the possibilities of 3D printing. The problem was I couldn't find a CAD program that was designed for me. I just wanted to be able to easily build things and not be overwhelmed with educationally licensed software. It led me to pursue this venture - to advance our 3D printed future by creating a simple parametric CAD program that is free and accessible to all. <br><br>
+			Coming off of a masters degree from Carnegie Mellon, I was accepted to build Honeycomb at the 1776 startup campus in Washington DC. As the sole founder, I've been able to program Honeycomb to its current state on minimal funding and lots of PB&J's. <br><br>
+			The progress so far has been great! Honeycomb is currently in a private beta, collaborating with testers to improve and add features. With your help, I am excited to build on this innovative tool so that all students and makers can design a better world.<br><br>
+			You can read more about Honeycomb's story at
+			<a href='http://www.solidsmack.com/cad/honeycomb-browser-based-cad-3d-printing/' target="_blank">Solidsmack</a>.
+		</p><br>
+		<p id="Signiture">Warm Regards,<br><br>
+		<%= image_tag("landing/signiture_firstname.png") %><br>
+		Kenan O'Keefe<br>Founder</p>
+	</div>	
+</section>
+<section id="Signup" class="landing">
+	<div id="Form">
+		<h2>Beta Sign Up</h2>
+		<span ng-style="{'color':alertColor}">{{alert}}</span>
+		<input type="email" ng-model="waitlist" ng-keyup="validate_waitlister(waitlist)" placeholder="email" ng-class="inputClass"/>
+		<textarea type="text" ng-model="comment" placeholder="comments" ng-class="inputClass"></textarea>
+		<div id="Submit" ng-class="submitClass" ng-click="new_waitlister(waitlist,comment)">{{submitVal}}</div>
+	</div>
+	<footer>© <%= Time.new.year %> | Honeycomb3d, Inc. | All Rights Reserved
+	</footer>
+</section>

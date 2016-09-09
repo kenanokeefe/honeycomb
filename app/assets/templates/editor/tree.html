@@ -1,0 +1,42 @@
+<div id="Tree" ng-controller="EditorTreeController" ng-class="cursor">
+	<div class='panel' ng-repeat="panel in cell.data track by $index">
+<!-- 		<div class="panel-header">
+			<div class="toggle {{panel.opened}}" ng-click="panel.opened = !panel.opened"></div>
+			<div class="name">{{cell.name}}</div>
+		</div> -->
+		<div class='tree' ng-show="panel.opened">
+			<div class="tree-item {{item.state}} {{item.class}} {{child_class(item)}} {{disable(item)}}" ng-repeat="item in panel.items | orderBy:'index' track by $index">
+				<div class="header"  ng-click="edit(item)">
+					<div class="toggle {{item.class}} {{csg_class(item)}}"></div>
+					<div class="name">{{item.name}}</div>
+					<div ng-if="item.class != 'Folder'" ng-repeat="button in actionButtons" id="{{button.id}}" ng-show="button.show(item)" ng-click="button.click(item); $event.stopPropagation();"></div>
+				</div>
+				<div class="body" ng-class="{'disabled':!active_child(item) || missing_sketch(item)}">
+					<div class="options" ng-class="{'disabled':missing_sketch(item)}">
+						<div class="option {{option.type}}" ng-repeat="option in item.options">
+							<div class="container" ng-if="option.type == 'select'"  ng-click="select_event(option.id)">
+								<div class="icon {{option.id}}"></div>
+								<div class="string">{{option.string}}</div>
+								<div class="cursor" ng-class="{selected:option.shapes.length>0}"></div>
+							</div>
+							<!-- TODO: eval and units of numbers, min 0, use angular filter? -->
+							<div class="container" ng-if="option.type == 'number' || option.type == 'text'">
+								<div class="icon {{option.id}}"></div>
+								<div class="unit {{option.id}}"></div>
+								<input type='{{option.type}}' ng-model="option.val">
+							</div>
+							<div class="container" ng-if="option.type == 'switch'">
+								<div class="case {{caseId}}" ng-class="{'active': caseId==option.val, 'disabled': !item.previous}" ng-repeat="caseId in option.cases" ng-click="option.val=caseId"></div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="children" ng-if="missing_sketch(item)" ng-click="select_event('sketch')">
+						<div class="icon"></div>
+						<div class="string">Sketch</div>
+						<div class="cursor"></div>
+					</div> --> <!-- here for empty placeholder if child is missing -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

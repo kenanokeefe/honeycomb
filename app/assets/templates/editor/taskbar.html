@@ -1,0 +1,21 @@
+<div id="Taskbar" ng-controller="EditorTaskbarController">
+	<div id="Save" ng-click="save_cell(cell)">
+		<div id="Icon"></div>
+		<span>last saved {{cell.updated_at  | date: 'short'}}</span>
+	</div>
+	<div id="Title">
+		<!-- <div id="Icon"></div> -->
+		<input type="text" ng-model="cell.name" ng-click="highlight()" ng-blur="blur()"/>
+	</div>
+	<div id="Menu" class='menu' ng-click="toggle_menu()">
+		<div id="Icon" class='menu'></div>
+		<span class='menu'>Menu</span>
+	</div>
+	<div id="MenuItems" class='menu' ng-show="menu"> <!-- consider using directives for popups -->
+		<div class='item' class='menu' ng-repeat="item in menuItems" id="{{item.id}}" ng-click="item.action(cell)">
+			<div class='icon' id="{{item.id}}" class='menu'></div>
+			<span class='name menu'>{{item.name}}</span>
+			<span class='shortcut menu'>{{item.shortcut}}</span>
+		</div>
+	</div>
+</div>

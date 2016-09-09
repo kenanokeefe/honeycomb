@@ -1,0 +1,45 @@
+@import 'mixins';
+
+#Button {
+	//float: left;
+	height: 35px;
+	width: 105px;
+	font-family: "open sans";
+	font-size: 16px;
+	font-weight: 300;
+	color: white;	
+	line-height: 30px;
+	background: $gray102;
+	border: solid 1px $gray102;
+	margin: 0 auto;
+	padding: 0px 10px;
+	cursor:pointer;
+	text-decoration: none;
+	text-align: center;
+	margin: 30px auto;
+	&.send {
+		background: none;
+		color: gray;
+	}
+	&.ready {
+		pointer-events: default;
+		background: $green;
+		border: solid 1px $green;
+		color: white;
+	}
+}
+
+table {
+	margin: 50px auto;
+	table {
+		border-collapse: collapse;
+		
+	}
+	table, th, td {
+		border: solid 1px gray;
+		font-family: 'open sans';
+		font-size: 12px;
+		color: $gray51;
+		padding: 10px;
+	}
+}

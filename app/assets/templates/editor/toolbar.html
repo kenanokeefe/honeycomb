@@ -1,0 +1,9 @@
+<div id="Toolbar" class="{{toolbarClass}} {{toolbarFeatureState}}" ng-controller="EditorToolbarController">
+	<button ng-repeat="tool in tools" ng-show="toolbarClass == tool.class && tool.show" id="{{ tool.id }}" ng-click="click(tool)">
+		<div class="dropdown" ng-show="show_dropdown(tool.class, tool.column)" ng-mouseenter="add_dropdowns(tool.class, tool.column, tool.id); $event.stopPropagation();" ng-mouseleave="hide_dropdowns(); $event.stopPropagation();">
+		</div>
+	</button>
+	<div class="dropdown-tools" ng-show="showDropdownTools" ng-style="toolOffset" ng-mouseenter="showDropdownTools = true" ng-mouseleave="showDropdownTools = false">
+		<button ng-repeat="dropdown in dropdowns" id="{{ dropdown.id }}" ng-click="click(dropdown); show_tool(dropdown.class, dropdown.column, dropdown.id)"></button>	
+	</div>
+</div>

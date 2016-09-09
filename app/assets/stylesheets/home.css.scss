@@ -1,0 +1,236 @@
+@import 'mixins';
+
+@mixin menu-bg($yCount) {
+	background-image: asset-url("editor/menu-sprite.png", image);
+	background-position: 0px $yCount * -40px ;
+}
+
+header.home {
+	width: 100%;
+	height: 80px;
+	border-bottom: solid 1px $gray102;
+	span.page-name {
+		position: absolute;
+		top: 20px;
+		left: 25px;
+		font-family: 'open sans';
+		font-size: 30px;
+		font-weight: 300;
+		color: $gray51;
+		position: absolute;
+		z-index: -1;
+	}
+	#Center {
+		position: absolute;
+		margin-left: -182px;
+		top: 25px;
+		left: 50%;
+		input {
+			float: left;
+			font-family: 'open sans';
+			font-size: 16px;
+			font-weight: 300;
+			color: $gray102;
+			height: 30px;
+			width: 200px;
+			padding: 0 10px;
+			border: solid 1px $gray102;
+			outline-color: $clearColor;
+		}
+		select {
+			float: right;
+			margin: 0 0 0 20px;
+			height: 32px;
+			border: solid 1px $gray102;
+			background: $gray102;
+			font-family: 'open sans';
+			font-size: 14px;
+			font-weight: 300;
+			color: white;
+			outline-color: $clearColor;
+			padding: 0 5px;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+	#Menu{
+		top: 25px;
+		right: 25px;
+		height: 30px;
+		border: solid 1px $gray102;
+		background: white;
+		position: absolute;
+		height: 30px;
+		font-size: 0;
+		cursor: default;
+		&.active {
+			cursor: pointer;
+			background: $gray102;
+			#Icon {
+				background-position: 0px -30px;
+			}
+			#Name {
+				color: white;
+			}
+		}
+		#Icon {
+			width: 30px;
+			height: 30px;
+			background-image: asset-url("home/home-sprite.png", image);
+			background-position: 0px 0px;
+			display: inline-block;
+			vertical-align:bottom;
+			margin: 0 3px;
+		}
+		#Name {
+			margin-right: 9px;
+			display: inline-block;
+			line-height: 30px;
+			font-size: 12px;
+			font-family: "open sans";
+			color: $gray51;
+		}
+	}
+	#MenuItems {
+		position: absolute;
+		z-index: 1;
+		right: 25px;
+		top: 56px;
+		width: 150px;
+		background-color: $gray51;
+		.item {
+			width: 100%;
+			height: 40px;
+			//text-align: center;
+			cursor: pointer;
+			.icon {
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				vertical-align:bottom;
+				//margin-left: -10px;
+				&#Undo{@include menu-bg(0)}
+				&#Redo{@include menu-bg(1)}
+				&#Download{@include menu-bg(2)}
+				&#Duplicate{@include menu-bg(3)}
+				&#Delete{@include menu-bg(4)}
+				&#Close{@include menu-bg(5)}
+			}
+			span {
+				//width: 110px;
+				height: 100%;
+				display: inline-block;
+				line-height: 40px;
+				font-size: 12px;
+				font-family: "open sans";
+				color: white;
+				//text-align: left;
+				//cursor: default;
+			}
+			&#Download {
+				border-bottom: solid 1px $gray102;
+				padding: 10px 0;
+			}
+			&:hover {
+				background-color: $gray102;
+			}
+		}
+	}
+}
+
+
+
+#CellSection {
+	width: calc(100% - 100px);
+	padding-top: $cellMarginTop;
+	margin: 20px 50px;
+	font-size: 0;
+	.cell-item {
+		width: 180px;
+		height: 208px;
+		display: inline-block;
+		margin: -$cellMarginTop 6px 0 0;
+		&.shift {
+			margin-left: 93px;
+		}
+		&.new .hexagon {
+			font-size: 52px;
+			font-weight: 300;
+		}
+	}
+
+	.hexagon-in1 {
+		overflow: hidden;
+		visibility: hidden;
+		width: 100%;
+		height: 100%;
+		@include transform(120deg);
+	}
+
+	.hexagon-in2 {
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		@include transform(-60deg);
+		a {
+			text-decoration: none;
+			color: black;
+			font-family: 'open sans';
+		}
+	}
+
+	.hexagon {
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		visibility: visible;
+		@include transform(-60deg);
+		background-color: $gray200;
+		background-size: cover;
+		background-position: center center;
+		line-height: 200px;
+		text-align: center;
+		cursor: pointer;
+		font-family: 'open sans';
+		font-size: 14px;
+		-webkit-user-select: none; 
+		&:hover {
+			background-color: gray;
+		}
+		&.selected {
+			background-color: gray;
+		}
+	}
+}
+
+#Banner {
+	display: block;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: calc( 100% - 0px);
+	//min-width: 800px;
+	height: 30px;
+	background: rgba(51,51,51,0.5);
+	text-align: center;
+	cursor: pointer;
+	font-family: 'open sans';
+	font-size: 12px;	
+	color: white;
+	line-height: 30px;
+	text-decoration: none;
+	overflow: hidden;
+	img {
+		margin: 5px;
+		display: inline-block;
+		vertical-align:bottom;
+	}
+	span {
+		height: 30px;
+		display: inline-block;
+		border-left: solid 1px rgba(51,51,51,0.25);
+		margin-left: 10px;
+		padding-left: 10px;
+	}
+}

@@ -1,0 +1,127 @@
+@import 'mixins';
+
+@mixin sketch-bg($xCount, $yCount) {
+	background-image: asset-url("editor/toolbar-sprite_sketch.png", image);
+	background-position: $xCount * -65px $yCount * -40px;
+
+	//for source path have to match stylesheet and image folder name
+}
+
+@mixin feature-bg($xCount, $yCount) {
+	background-image: asset-url("editor/toolbar-sprite_feature.png", image);
+	background-position: $xCount * -65px $yCount * -40px;
+}
+
+@mixin events($height) {
+   @if $height == '10px' {
+   	pointer-events: all;
+   } @else {
+      pointer-events: none;
+   }
+}	
+
+
+#Toolbar {
+	position: absolute;
+	top: 25px;
+	left: 50%;
+	height: 40px;
+	z-index: 1;
+	//width: 100%;
+	font-size: 0; //removes dumb whitespace
+	button {
+		padding: 0;
+		margin: 0;
+		border: none;
+		background-repeat: no-repeat;
+		background-color: rgba(196, 170, 141, 1);
+		display: inline-block;
+		width: 65px;
+		height: 40px;
+		cursor: pointer;
+		pointer-events: auto;
+		&:focus {
+			outline: none;
+		}
+		&.focused, &:hover {
+			background-color: rgba(185, 153, 121, 1);
+			
+			&>.dropdown {
+	      	height: 10px;
+	      	pointer-events: all;
+	      	-webkit-transition: height 0s linear 0.75s;		
+			}
+		}
+		.dropdown {
+			pointer-events: none;
+			position: absolute;
+			z-index: 1;
+			bottom: 0;
+	      width: 65px;
+	      height: 0px;
+	      background-color: rgba(0, 0, 0, 0.2);
+	      background-image: asset-url("editor/dropdown-arrow.png", image);
+	      background-position: center 2px;
+	      background-repeat: no-repeat;		
+	      &:hover {
+	      	background-color: rgba(0, 0, 0, 0.4);
+	      	//-webkit-transition-delay: 0s;
+	      }
+		}
+	}
+	.dropdown-tools {
+		width: 65px;
+		position: absolute;
+		top: 40px;
+	}
+	&.sketch {
+		#Line {@include sketch-bg(0, 0)}
+		#Spline {@include sketch-bg(0, 1)}
+		#Arc {@include sketch-bg(0, 2)}
+		#Rectangle2pt {@include sketch-bg(1, 0)}
+		#RectangleCenter {@include sketch-bg(1, 1)}
+		#Rectangle3pt {@include sketch-bg(1, 2)}
+		#Circle {@include sketch-bg(2, 0)}
+		#Circle3pt {@include sketch-bg(2, 1)}
+		#Ellipse {@include sketch-bg(2, 2)}
+		#Polygon {@include sketch-bg(3, 0)}
+		#Text {@include sketch-bg(4, 0)}
+		#Fillet {@include sketch-bg(5, 0)}
+		#Chamfer {@include sketch-bg(5, 1)}
+		#Mirror {@include sketch-bg(6, 0)}
+		#Offset {@include sketch-bg(6, 1)}
+		#RadialPattern {@include sketch-bg(7, 0)}
+		#LinearPattern {@include sketch-bg(7, 1)}
+		#Measure {@include sketch-bg(8, 0)}
+		#Trim {@include sketch-bg(9, 0)}
+		#Rectangle2pt, #LinearPattern {
+			border-right: 1px solid rgba(185, 153, 121, 1);
+		}
+		margin-left: calc(-65px * 3 / 2 + 1px);
+	}
+	&.feature {
+		#Sketch {@include feature-bg(0, 0)}
+		#Extrude {@include feature-bg(1, 0)}
+		#Revolve {@include feature-bg(2, 0)}
+		#Shell {@include feature-bg(3, 0)}
+		#Fillet {@include feature-bg(4, 0)}
+		#Chamfer {@include feature-bg(4, 1)}
+		#Mirror {@include feature-bg(5, 0)}
+		#LinearPattern {@include feature-bg(6, 0)}
+		#RadialPattern {@include feature-bg(6, 1)}
+		#Plane {@include feature-bg(7, 0)}
+		#Axis {@include feature-bg(7, 1)}
+		#Sketch, #Extrude, #LinearPattern {
+			border-right: 1px solid rgba(185, 153, 121, 1);
+		}
+		margin-left: calc( -65px * 3  / 2 + 2px );
+	}
+}
+
+#Toolbar.disabled.feature {
+	button {
+		opacity: 0.8;
+		cursor: default;
+		pointer-events: none;
+	}
+}

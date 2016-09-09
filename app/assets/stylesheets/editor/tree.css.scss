@@ -1,0 +1,460 @@
+@import 'mixins';
+
+$array: (
+folder-open,
+folder-closed,
+maximize,
+minimize,
+finish,
+cancel,
+delete,
+visible,
+hidden,
+duplicate,
+reference,
+plane,
+axis, 
+sketch,
+sketchplane,
+shape,
+select,
+selected,
+extrude-join,
+extrude-cut,
+height,
+offset,
+left,
+middle,
+right,
+join,
+cut,
+new-body,
+revolve-join,
+revolve-cut,
+angle,
+rotation-axis,
+mirror,
+linearPattern,
+radialPattern,
+count,
+spacing,
+rX,
+rY,
+rZ,
+tX,
+tY,
+tZ,
+mm,
+deg
+);
+
+@function index($id) {
+	$index: 0;
+	@for $i from 0 to length($array) {
+		@if nth($array, $i+1) == $id {
+			$index: $i;
+		}
+	}	
+	@return $index;
+}
+
+@mixin bg($id) {
+	$index: index($id);
+	background: asset-url("editor/tree-sprite.png", image) center $index * -30px;
+	background-repeat: no-repeat;
+	//background-position-x: center;
+}
+
+#Tree {
+	pointer-events: none;
+	position: absolute;
+	z-index: 1;
+	top: 25px;
+	left: 0px;
+	padding: 80px 0;
+	padding-left: 15px;
+	background: none;
+	width: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: calc(100% - 186px);
+	&.select {
+		cursor: asset-url("editor/cursors/select.png", image) 0 0, auto !important;
+	}
+	&::-webkit-scrollbar {
+	  display: none;
+	}
+	.panel {
+		pointer-events: none;
+		float: left;
+		width: 100%;
+		overflow: hidden;
+		.panel-header {
+			height: 30px;
+			.toggle {
+				pointer-events: auto;
+				float: left;
+				height: 100%;
+				width: 28px;
+				cursor: pointer;
+				&.true {@include bg(minimize);}
+				&.false {@include bg(maximize);}
+			}
+			.name {
+				pointer-events: auto;
+				float: left;
+				height: 100%;
+				line-height: 32px;
+				font-size: 16px;
+				font-family: "abel";
+				color: $gray102;
+				cursor: text;
+				//border-bottom: solid 1px $gray200;
+				//box-sizing: border-box;
+			}
+		}
+		.tree {
+			float: left;
+			width: 100%;
+			padding: 0 0 5px 0;
+			pointer-events: none;
+			.branch {
+				display: none;
+			}
+			.tree-item {
+				pointer-events: auto;
+				padding: 0;
+				background: none;
+				border: none;
+				outline: none;
+				float: left;
+				width: 180px;
+				margin: 0 0 -1px 10px;
+				border: solid 1px $clearColor;
+				.header{
+					float: left;
+					width: 100%;
+					cursor: pointer;
+					position: relative;
+					z-index: 0;
+					.toggle {
+						float: left;
+						width: 30px;
+						height: 30px;
+						&.references {@include bg(reference);}
+						&.features {@include bg(sketch);}						
+						&.Plane {@include bg(plane);}
+						&.Axis {@include bg(axis);}
+						&.Sketch {@include bg(sketch);}
+						&.Extrude {
+							&.join{@include bg(extrude-join);}
+							&.cut {@include bg(extrude-cut);}
+						}							
+						&.new~.name {
+							color: $green;
+							font-weight: 600;
+						}							
+					}
+					.name {
+						float: left;
+						line-height: 30px;
+						font-size: 12px;
+						font-family: "open sans";
+						color: $gray51;
+						cursor: pointer;
+						padding-left: 2px;
+						-webkit-user-select: none;          ///// Disables dumb highlighting of text
+					}
+					#Cancel, #Finish, #Delete {
+						float: right;
+						width: 32px;
+						height: 30px;
+						cursor: pointer;
+						&:hover {
+							opacity: 1;
+						}
+					}
+					#Cancel {					
+						@include bg(cancel);
+						background-color: $red;
+						opacity: 0.6;
+					}
+					#Finish {						
+						@include bg(finish);
+						background-color: $green;
+						opacity: 0.75;
+					}
+					#Delete {
+						@include bg(delete);
+						opacity: 0;	//work around ng-show
+					}
+				}
+				.body {
+					float: left;
+					width: 100%;
+					border-top: solid 1px $gray102;
+					display: none;
+					&.disabled {
+						display: none !important;
+					}
+					.options {
+						&.disabled {
+							display: none !important;
+						}
+						float: left;
+						width: calc( 100% - 30px );
+						display: block;
+						padding: 15px;
+						padding-top: 16px;										
+						.option {              ///make all options inputs/buttons?, give tab-index?
+							$optionsColor: $gray200;
+							float: left;
+							width: 146px;
+							height: 28px;
+							text-align: left;
+							font-family: 'open sans';
+							font-size: 12px;
+							color: $gray51;
+							border: solid 1px $clearColor;
+							.container {
+								float: left;
+								width: 100%;
+								height: 100%;
+							}
+							&.select {
+								display: none;                                /////////temp solution for beta
+								cursor: pointer;
+								border: solid 1px $optionsColor;
+								margin-top: -1px;
+								.icon {
+									float: left;
+									width: 30px;
+									height: 30px;
+									margin: -1px 0 0 -1px;
+									&.shape {@include bg(shape);}	
+									&.sketchplane {@include bg(sketchplane);}							
+								}
+								.string {
+									float: left;
+									height: 28px;
+									width: auto;
+									padding-left: 5px;
+									line-height: 28px;
+									font-family: 'open sans';
+									font-size: 12px;
+									color: $gray51;
+									-webkit-user-select: none;								
+								}
+								.cursor {
+									float: right;
+									width: 30px;
+									height: 30px;
+									margin: -1px -1px 0 0;
+									@include bg(select);
+									&.selected{@include bg(selected);}												
+								}								
+							}
+							&.number {
+								border: solid 1px $optionsColor;
+								margin-top: -1px;
+								.icon {
+									position: absolute;
+									width: 30px;
+									height: 30px;
+									margin: -1px 0 0 -1px;
+									&.height {@include bg(height);}
+									&.offset {@include bg(offset);}
+									&.plane {@include bg(plane);}
+									&.rX {@include bg(rX);}
+									&.rY {@include bg(rY);}
+									&.rZ {@include bg(rZ);}
+									&.tX {@include bg(tX);}
+									&.tY {@include bg(tY);}
+									&.tZ {@include bg(tZ);}												
+								}
+								.unit {
+									position: absolute;
+									right: 45px;
+									width: 30px;
+									height: 30px;
+									margin: -1px -1px 0 0x;
+									&.height, &.tX, &.tY, &.tZ {@include bg(mm);}
+									&.rX, &.rY, &.rZ {@include bg(deg);}
+								}
+								input {
+									position: absolute;
+									width: calc( 146px - 35px );
+									height: 28px;
+									padding: 0;
+									padding-left: 35px;
+									border: none;
+									background: none;
+									font-family: 'open sans';
+									font-size: 12px;
+									color: $gray51;
+								}
+							}
+							&.text {
+								pointer-events: none;
+							}
+							&.switch {
+								margin-top: 5px;
+								.case {
+									float: left;
+									height: 30px;
+									width: 50px;
+									box-sizing: border-box;
+									border: solid 1px $optionsColor;
+									margin: -1px 0 0 -1px;
+									&.left {@include bg(left);}
+									&.middle {@include bg(middle);}
+									&.right {@include bg(right);}
+									&.join {@include bg(join);}
+									&.cut {
+										@include bg(cut);
+										&.disabled {
+											display: none;
+										}
+									}
+									//move image up 1px
+
+									//&.sketch {@include bg(sketch);}
+									//&.shape {@include bg(shape);}	
+									&.active, &.active:hover {
+										background-color: $optionsColor;
+									}
+									&:hover {
+										cursor: pointer;
+									}
+									&:nth-of-type(3) {
+										margin-right: -1px;
+									}
+								}
+							}
+						}
+					}
+					.children {
+						cursor: pointer;
+						float: left;
+						width: 170px;
+						height: 30px;
+						margin: 4px;
+						border: dashed 1px $gray200;
+						.icon {
+							float: left;
+							width: 30px;
+							height: 30px;
+							margin: -1px 0 0 -1px;
+							@include bg(sketch);							
+						}
+						.string {
+							float: left;
+							height: 28px;
+							width: auto;
+							padding-left: 5px;
+							line-height: 28px;
+							font-family: 'open sans';
+							font-size: 12px;
+							color: $gray51;
+							-webkit-user-select: none;								
+						}
+						.cursor {
+							float: right;
+							width: 30px;
+							height: 30px;
+							margin: -1px -1px 0 0;
+							@include bg(select);										
+						}
+					}
+				}
+				&.closed {
+					.header .toggle {
+						&.Folder {@include bg(folder-closed);}
+					}				
+				}
+				&.creating, &.editing, &.pending, &.opened {
+					.header .toggle {
+						&.Folder {@include bg(folder-open);}
+					}
+					.header, .toggle, .name {
+						cursor: default;
+					}
+					.body {
+						display: block;
+					}
+				}
+				&.disabled {
+					opacity: 0.5;
+					pointer-events: none;
+				}
+				&.creating, &.editing, &.pending, &.closed:hover, &.highlighted {
+					border: solid 1px $gray102;
+					opacity: 1;
+					pointer-events: auto;
+				}
+				&.closed:hover #Delete{
+					opacity: 0.25;
+					&:hover {
+						opacity: 1;
+					}
+				}
+				&.opened {    ////ONLY FOR FOLDER	
+				}
+				&.Folder {
+					&.closed, &.opened {
+						pointer-events: none;
+						width: 190px;
+						border: solid 1px $clearColor;
+						>.header {
+							cursor: default;
+							pointer-events: none;
+							.toggle, .name {
+								cursor: pointer;
+								pointer-events: auto;
+							}
+						}
+						>.body {
+							display: none;
+						}
+						&:hover {
+							border: solid 1px $clearColor;
+						}	
+					}
+				}
+				&.hidden-child {
+					display: none;
+				}
+				&.folder-child {
+					//border-left: solid 1px $gray200;
+					margin-left: 17px !important;
+					~.branch {
+						display: block;
+						float: left;
+						width: 5px;
+						height: 15px;
+						box-sizing: border-box;
+						border-left: solid 1px $gray200;
+						border-bottom: solid 1px $gray200;
+					}
+				}
+				&.item-child {
+					border: solid 1px $gray102;
+					border-top: solid 1px $gray200;
+					border-top-right-radius: 2px;        ///fixes top right pixel color
+					opacity: 1;
+					pointer-events: auto;
+					&:hover {
+						border-top: solid 1px $gray200;
+					}
+					&.editing { //, &.editing:hover
+						border-top: solid 1px $clearColor;
+					}
+				}
+			}
+		}
+	}
+}
+
+.folder-child {
+	margin-left: 7px !important;
+}

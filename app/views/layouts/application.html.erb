@@ -1,0 +1,33 @@
+ <!DOCTYPE html>
+<% if yield(:title) === 'landing' %>
+<html ng-app='landingApp'>
+	<head>
+		<title>Honeycomb | Simple CAD for 3D Printing - Parametric, Free, and in the Browser</title>
+		<%= stylesheet_link_tag  "application", media: "all" %>
+		<%= javascript_include_tag "landing_app.js" %>
+		<%= javascript_include_tag "landing.js" %>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<%= csrf_meta_tags %>
+		<%= render 'layouts/meta'%>
+	</head>
+	<body ng-controller="LandingController">
+		<%= yield %>
+	</body>
+</html>
+ <% else %>
+<html ng-app='hcApp'>
+	<head>
+		<title>Honeycomb</title>
+		<%= stylesheet_link_tag  "application", media: "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<%= csrf_meta_tags %>
+		<%= render 'layouts/meta'%>
+	</head>
+	<body ng-controller="RootController">
+		<sidebar ng-if="showSidebar"></sidebar>
+		<div id="Window" ng-view ng-class="{full: !showSidebar}">
+		</div>
+	</body>
+</html>
+ <% end %>

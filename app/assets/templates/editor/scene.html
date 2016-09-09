@@ -1,0 +1,3 @@
+<div id="Scene" ng-controller="EditorSceneController" ng-mousedown="leftClick($event)" ng-mouseup="mouseUp($event)" ng-dblclick="doubleClick($event)" ng-mousemove="hover($event)" ng-class="cursor">
+<input ng-repeat="dim in sketch.dimensions" ng-if="hidden(dim)" class="dim-box {{dim.state}} {{disabled(dim)}} {{focus(dim)}}" ng-class="{'selected':dim.selected}" id="{{no_spaces(dim.name)}}" type="text" style="{{project(dim)}}" ng-blur="blur(dim)" ng-change="change(dim)" ng-model="dim.values[2]" >
+</div>

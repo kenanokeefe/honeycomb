@@ -1,0 +1,24 @@
+<div id="Profile">
+	<div id="CoverPhoto">
+<!-- 		<div>Add Cover Photo</div><br>
+		<div>View As: Myself</div> -->
+	</div>
+	<div id="LeftColumn">
+		<div id="Photo"></div>
+		<span id="Name">{{maker.name}}</span>
+		<span id="Username">{{maker.username}}</span>
+		<span id="Bio">{{maker.bio}}</span>
+		<span id="BioData" ng-repeat="data in maker.bioData">
+			<div class="icon {{data.class}}"></div>
+			{{data.data}}
+		</span>
+	</div>
+	<div id="Body">
+		<div id="Tabs">
+			<div class="tab" ng-repeat="tab in tabs">
+				<div class="icon {{tab}}"></div><br>
+				{{tab}}
+			</div>
+		</div>
+	</div>
+</div>

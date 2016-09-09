@@ -1,0 +1,65 @@
+@import 'mixins';
+
+@function index($id) {
+	$index: 0;
+	@for $i from 0 to length($array) {
+		@if nth($array, $i+1) == $id {
+			$index: $i;
+		}
+	}	
+	@return $index;
+}
+
+@mixin bg-foo($id) {
+	$index: index($id);
+	background: asset-url("editor/tree-sprite.png", image) 0px $index * -30px;
+}
+
+
+@mixin bg($xCount) {
+	background-image: asset-url("editor/viewbar-sprite.png", image);
+	background-position: $xCount * -40px 0px;
+}
+
+#Solid {@include bg(0)}
+
+#Viewbar {
+	position: absolute;
+	z-index: 1;
+	bottom: 5px;
+	left: 50%;
+	margin-left: -42px;
+	font-size: 0; //removes dumb whitespace
+	button {
+		padding: 0;
+		margin: 0 0 0 -1px;
+		border: solid 1px $clearColor;
+		background-repeat: no-repeat;
+		background-color: $clearColor;
+		display: inline-block;
+		height: 42px;
+		width: 42px;
+		opacity: 0.6;
+		&:focus {
+			outline: none;
+		}
+		&.focused, &:hover {
+			cursor: pointer;
+			opacity: 1;
+		}
+		&.mesh {
+			&#Solid {@include bg(0)}
+			&#Clear {@include bg(1)}
+			&#Lines {@include bg(2)}
+			&#None {@include bg(3)}
+		}
+		&.scene {
+			&#All {@include bg(4)}
+			&#Planes {@include bg(5)}
+			&#Axes {@include bg(6)}
+			&#None {@include bg(7)}
+		}		
+	}
+
+}
+

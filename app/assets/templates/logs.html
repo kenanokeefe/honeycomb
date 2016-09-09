@@ -1,0 +1,30 @@
+<div id="Button" ng-click="invite_check()">Check</div>
+<div id="Button" class="send" ng-class="inviteClass" ng-click="invite_send()">Send</div>
+<table id="Invites" cellspacing="0" cellpadding="0">
+  <tr>
+    <th>Email</th>
+    <th>Access</th> 
+    <th>Invited</th>
+  </tr>
+  <tr ng-repeat="invite in invites">
+    <td>{{invite.email}}</td>
+    <td>{{invite.access}}</td> 
+    <td>{{invite.invited}}</td>
+  </tr>
+</table>
+<table id="Logs" cellspacing="0" cellpadding="0">
+  <tr>
+    <th>Maker</th>
+    <th>Action</th> 
+    <th>Cell</th>
+    <th>Time</th>
+    <th>Link</th>
+  </tr>
+  <tr ng-repeat="log in logs | orderBy:action ">
+    <td>{{log.maker}}</td>
+    <td>{{log.action}}</td> 
+    <td>{{log.cell}}</td>
+    <td>{{log.created_at | date: 'short'}}</td>
+    <td><a href="http://www.honeycomb3d.com/#/cells/"+></a></td>
+  </tr>
+</table>

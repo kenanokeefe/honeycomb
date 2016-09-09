@@ -1,0 +1,167 @@
+@import 'mixins';
+
+$borderColor: $gray225;
+$textColor: $gray51;
+
+@mixin bg($xCount) {
+	background-image: asset-url("editor/taskbar-sprite.png", image);
+	background-position: $xCount * -24px 0px;
+	width: 24px;
+	height: 24px;
+}
+
+@mixin menu-bg($yCount) {
+	background-image: asset-url("editor/menu-sprite.png", image);
+	background-position: 0px $yCount * -40px ;
+}
+
+#Border1 {
+	position: relative;
+	float: left;
+	width: calc(100% - 0px);
+	height: calc(100% - 0px);
+	border: solid 0px $gray200;
+}
+
+#Border2 {
+	position: relative;
+	width: calc(100% - 8px);
+	height: calc(100% - 4px);
+	border: solid 4px $borderColor;
+	border-top: none;
+}
+
+#Taskbar {
+	position: relative;
+	z-index: 2;
+	top: 0px;
+	right: 0px;
+	width: calc(100% - 0px);
+	height: 24px;
+	background: $borderColor;
+	font-size: 0; //removes dumb whitespace
+	//@include bevel;
+	#Title{
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -150px;
+		#Icon {
+			@include bg(1);
+			display: inline-block;
+			vertical-align:bottom;
+		}
+		input {
+			width: 300px;
+			font-size: 16px;
+			font-family: "abel";
+			color: $textColor;
+			height: 100%;
+			line-height: 24px;
+			outline-color: $clearColor;
+			border: none;
+			background: $clearColor;
+			padding: 0;
+			text-align: center;
+		}
+	}
+	#Save{
+		position: absolute;
+		left: 0;
+		height: 100%;
+		padding-right: 8px;
+		#Icon {
+			@include bg(2);
+			display: inline-block;
+			vertical-align:bottom;
+		}
+		span {
+			padding-left: 3px;
+			display: inline-block;
+			line-height: 24px;
+			font-size: 10px;
+			font-family: "open sans";
+			color: $textColor;
+		}
+		&:hover {
+			cursor: pointer;
+			background: $gray51alpha;
+		}
+	}
+	#Menu{
+		position: absolute;
+		right: 0;
+		height: 100%;
+		&:hover {
+			cursor: pointer;
+			background: $gray51alpha;
+		}
+		#Icon {
+			@include bg(0);
+			display: inline-block;
+			vertical-align:bottom;
+			margin: 0 5px;
+		}
+		span {
+			margin-right: 12px;
+			display: inline-block;
+			line-height: 24px;
+			font-size: 12px;
+			font-family: "open sans";
+			color: $textColor;
+		}
+	}
+	#MenuItems {
+		position: absolute;
+		z-index: 1;
+		right: 0;
+		top: 24px;
+		width: 150px;
+		background-color: $gray51;
+		.item {
+			width: 100%;
+			height: 40px;
+			//text-align: center;
+			cursor: pointer;
+			.icon {
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				vertical-align:bottom;
+				//margin-left: -10px;
+				&#Undo{@include menu-bg(0)}
+				&#Redo{@include menu-bg(1)}
+				&#Download{@include menu-bg(2)}
+				&#Duplicate{@include menu-bg(3)}
+				&#Delete{@include menu-bg(4)}
+				&#Close{@include menu-bg(5)}
+			}
+			span.name {
+				height: 100%;
+				display: inline-block;
+				line-height: 40px;
+				font-size: 12px;
+				font-family: "open sans";
+				color: white;
+			}
+			span.shortcut {
+				float: right;
+				padding-right: 10px;
+				height: 100%;
+				display: inline-block;
+				line-height: 40px;
+				font-size: 10px;
+				font-family: "open sans";
+				color: white;			
+			}
+			&#Download {
+				border-top: solid 1px $gray102;
+				border-bottom: solid 1px $gray102;
+				padding: 10px 0;
+			}
+			&:hover {
+				background-color: $gray102;
+			}
+		}
+	}
+}

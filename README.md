@@ -1,28 +1,24 @@
-== README
+# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repository is an attempt to build a browser-based 3D modeling application intended to output WebGL meshes to STL files for desktop 3D printing. This application would not be possible without the following open-source projects:
+* Ruby on Rails, https://github.com/rails/rails
+* Angular, https://github.com/angular
+* three.js, https://github.com/mrdoob/three.js/
+* ThreeCSG, https://github.com/chandlerprall/ThreeCSG
 
-Things you may want to cover:
+This project is inspired by other open-source 3D modeling projects including:
+* Shapesmith, https://github.com/bjnortier/shapesmith
+* Openscad, https://github.com/openscad/openscad
+* OpenJSCAD, https://github.com/Spiritdude/OpenJSCAD.org
 
-* Ruby version
+Also a big special thanks to [Printrbot](http://printrbot.com/) in supporting this project.
 
-* System dependencies
+***
 
-* Configuration
+A description of the application structure can be seen [HERE](https://github.com/kenanokeefe/Honeycomb3D/wiki).
 
-* Database creation
+A demo video of the application can be seen [HERE](https://vimeo.com/107497401).
 
-* Database initialization
+### Accessible under the MIT Lincense
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+### DEPRECIATED: this project is not being actively maintained
